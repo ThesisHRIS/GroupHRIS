@@ -69,26 +69,26 @@ class Add201File extends CI_Controller
 
 		return $this->MdFiles->getAllCompany();
 	}
+
 	public function view(){
 		$data['sess_email'] = $this->session->userdata('email');
 		$this->load->view("common/head",$data);
-			$this->load->view("common/header");
-			// $this->load->view("common/nav");
+		$this->load->view("common/header");
 		$data['company']= $this->getAllCompany();
 		$emp_id =$this->input->get('emp_id');
 		$data['data'] = $this->MdFiles->getView($emp_id);
-		$this->load->view('pages/file_201_module/view201',$data);
+		$data['emp_id'] = $emp_id;
+		$data['tax_status'] = $this->MdFiles->getTax();
+		$data['department'] = $this->MdFiles->getAllDepartment();
+		$data['supervisor'] = $this->MdFiles->getSupervisor();
+		// print_r($data);
+		$this->load->view('pages/file_201_module/update_201',$data);
+		$this->load->view('common/foot');
+		$this->load->view('common/footer');
 	}
 	public function saveForm(){
-			$arrNew = array();
-			$contactName = parse_str($_GET['data_upd'], $arrNew);
-		// $data = array(
-		// 	"contact_name" => $arrNew['contact_name'],
-		// 	"contact_no" => $arrNew['cel_number'].",".$arrNew['phone_number'],
-		// 	"email" => $arrNew['personal_email'].",".$arrNew['work_email'],
-		// 	"value" => $arrNew['value']
-		// 	);
-		// echo $arrNew['emp_no'];
+		$arrNew = array();
+		$contactName = parse_str($_GET['data_upd'], $arrNew);
 		$array = array(
 			'emp_no'=>$arrNew['emp_no'],
 			'company_id'=>$arrNew['company'],
@@ -139,7 +139,7 @@ class Add201File extends CI_Controller
 			'department'=>$arrNew['department'],
 			'company'=>$arrNew['company'],
 			'supervisor_id'=>$arrNew['supervisor_id'],
-			'enabled'=>1
+			'status'=>'Active'
 		);
 		
 		// print_r($array);
@@ -154,16 +154,11 @@ class Add201File extends CI_Controller
 			'basic'=>$this->encrypt->encode($arrNew['basic'].SALT),
 			'ecola'=>$arrNew['ecola'],
 			'other'=>$arrNew['other'],
-			'flexi'=>$arrNew['flexi'],
 			'pay_start'=>$date,
-			'pay_end'=>'N/A',
-			'daily'=>$arrNew['daily']
+			'pay_end'=>'N/A'
 		);
 		// print_r($array1);
 		$query1=$this->MdFiles->addSalary($array1);
-
-	
-			# code...
 		
 		$data = array(
 				'emp_id'=>$id[0]['emp_id'],
@@ -179,6 +174,79 @@ class Add201File extends CI_Controller
 			}else{
 				echo '0';
 			}	
+	
+	}
+	public function update_201(){
+		$arrNew = array();
+		$contactName = parse_str($_GET['data_upd'], $arrNew);
+		$array = array(
+			'emp_no'=>$arrNew['emp_no'],
+			'company_id'=>$arrNew['company'],
+			'last_name'=>ucfirst($arrNew['last_name']),
+			'middle_name'=>ucfirst($arrNew['middle_name']),
+			'birth_date'=>$arrNew['birth_date'],
+			'first_name'=>ucfirst($arrNew['first_name']),
+			'civil_status'=>$arrNew['civil_status'],
+			'gender'=>$arrNew['gender'],
+			'birth_place'=>$arrNew['birth_place'],
+			'nationality'=>$arrNew['nationality'],
+			'religion'=>$arrNew['religion'],
+			'email'=>$arrNew['email'],
+			'password'=>'2Io2zVMZTA9dFUtpwKKVSn7SYQ7ZgpbOcACl8nGRiEk',
+			'address'=>$arrNew['address'],
+			'mobile'=>$arrNew['mobile'],
+			'phone'=>$arrNew['phone'],
+			'elementary'=>$arrNew['elementary'],
+			'highschool'=>$arrNew['highschool'],
+			'hs_address'=>$arrNew['hs_address'],
+			'hs_graduated'=>$arrNew['hs_graduated'],
+			'vocational'=>$arrNew['vocational'],
+			'voc_address'=>$arrNew['voc_address'],
+			'voc_graduated'=>$arrNew['voc_graduated'],
+			'voc_course'=>$arrNew['voc_course'],
+			'college'=>$arrNew['college'],
+			'col_address'=>$arrNew['col_address'],
+			'col_graduated'=>$arrNew['col_graduated'],
+			'col_course'=>$arrNew['col_course'],
+			'post_graduate'=>$arrNew['post_graduate'],
+			'postgrad_address'=>$arrNew['postgrad_address'],
+			'postgrad_graduated'=>$arrNew['postgrad_graduated'],
+			'postgrad_degree'=>$arrNew['postgrad_degree'],
+			'children'=>$arrNew['children'],
+			'sss'=>$arrNew['sss'],
+			'tin'=>$arrNew['tin'],
+			'philhealth'=>$arrNew['philhealth'],
+			'pag_ibig'=>$arrNew['pag_ibig'],
+			'tax_status'=>$arrNew['tax_status'],
+			'spouse_name'=>$arrNew['spouse_name'],
+			'spouse_job'=>$arrNew['spouse_job'],
+			'spouse_company'=>$arrNew['spouse_company'],
+			'contact_emergency'=>$arrNew['contact_emergency'],
+			'contact_relation'=>$arrNew['contact_relation'],
+			'contact_number'=>$arrNew['contact_number'],
+			'hire_date'=>$arrNew['hire_date'],
+			'position'=>$arrNew['position'],
+			'department'=>$arrNew['department'],
+			'company'=>$arrNew['company'],
+			'supervisor_id'=>$arrNew['supervisor_id'],
+			'status'=>$arrNew['status']
+		);
+		$query=$this->MdFiles->updateAdd201files($arrNew['emp_id'],$array);
+		$id=  $this->MdFiles->getEmp_id();
+		$array1 = array(
+			'emp_id'=>$id[0]['emp_id'],
+			'basic'=>$this->encrypt->encode($arrNew['basic'].SALT),
+			'ecola'=>$arrNew['ecola'],
+			'other'=>$arrNew['other'],
+			'pay_end'=>'N/A'
+		);
+		$query1=$this->MdFiles->updateAddSalary($arrNew['emp_id'],$array1);
+		
+		if ($query&&$query1) {
+			echo '1';
+		}else{
+			echo '0';
+		}	
 	
 	}
 }

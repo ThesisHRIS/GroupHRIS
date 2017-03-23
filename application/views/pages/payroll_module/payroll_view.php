@@ -8,14 +8,16 @@
 						<div>
 							<!-- <form  name="pay" class ="pay" > -->
 							 <?php $attributes = array('class' => '', 'id' => ''); echo form_open_multipart('AgorraPayroll/', $attributes); ?>
-									<select name="term">
+						<div class="col-sm-3">
+							<select class="form-control" name="term">
 							<option value = "1">1st</option>
 							<option value = "2">2nd</option>
 							</select>
+						</div>
 							<!-- <select name="month"> -->
 
-							
-							<select size="1" name="month">
+							<div class="col-sm-3" >
+							<select class="form-control" style="height:40px;" size="1" name="month">
 							<option value = "1">January</option>
 							<option value = "2">February</option>
 							<option value = "3">March</option>
@@ -31,11 +33,12 @@
 
 							</select>
 
-						
+							</div>
 							
 								
 							<!-- </select> -->
-							<select name="years">
+							<div class="col-sm-3">
+							<select class="form-control"  name="years">
 								<?php 
 									for($x = date("Y"); $x>=2000;$x--){
 										echo '<option value="'.$x.'">'.$x.'</option>';
@@ -43,7 +46,8 @@
 								?>
 								<!-- <option value=""></option> -->
 							</select>
-							<input type="submit" name="submit" value="Generate" id = "submit" class="submit">
+						</div>
+							<input type="submit"  name="submit" value="Generate" id = "submit" class="btn btn-success submit">
 							</form>
 						
 						</div>

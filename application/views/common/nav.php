@@ -18,7 +18,6 @@
                   <ul class="sub">
                       <li class="<?php echo $active201; ?>"><a  href="<?php echo base_url(); ?>Add201File"> New 201 Files</a></li>
                       <li class="<?php echo $active201View; ?>"><a  href="<?php echo base_url(); ?>View_201">View 201 Files</a></li>
-                      <li class="<?php echo $salaryConfig; ?>"><a  href="<?php echo base_url(); ?>EmployeeSalary">Employee Salary Config</a></li>
                   </ul>
               </li>
 

@@ -25,6 +25,10 @@
 									<i class="fa fa-gears"></i>
 									Action
 								</th>
+								<th>
+									<i class="fa fa-gears"></i>
+									status
+								</th>
 							</tr>
 						</thead>
 						<tbody >
@@ -41,10 +45,8 @@
 								<button class="btn btn-info btn-xs" onclick="view201(<?php echo $data['emp_id'] ?>);"  data-toggle="modal" data-target="#view201" title="edit">
                               			<i class="fa fa-eye"></i>
                            			</button>
-									<a class="btn btn-danger btn-xs deleteUser" href="<?php $data['emp_id']; ?>" title="trash">
-            							<i class="fa fa-trash-o "></i>
-            						</a>
 								</td>
+								<td> <?php echo $data['status']?></td>
 							</tr>
 							<?php } ?>
 						</tbody>

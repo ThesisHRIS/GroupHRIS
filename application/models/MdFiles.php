@@ -1,14 +1,5 @@
 <?php
 
-
-/*
-* NAME : Sales Model
-* TYPE : CI_Model
-* DEVELOPER : 
-* DATE DEVELOPED: 
-* DESCRIPTION: Dashboard
-*/
-
 class MdFiles extends CI_Model {
 
 	private $table = "tbl_employees";
@@ -215,9 +206,11 @@ class MdFiles extends CI_Model {
 	
 	public function getView($id){
 		// echo $id;
-		$this->db->select()
+		$this->db->select('*')
 		->from('tbl_employees as emp')
 		->join('tbl_department as dep','dep.department_no = emp.department','LEFT')
+		->join('tbl_salary as sal','sal.emp_id = emp.emp_id','LEFT')
+		->join('tbl_character_reference as char','char.emp_id = emp.emp_id','LEFT')
 		->where('emp.emp_id',$id);
 
 		$query= $this->db->get();
@@ -385,6 +378,23 @@ class MdFiles extends CI_Model {
 
 	public function deleteUser($id){
 		$this->db->where('emp_id', $id)->update('flag', 0);
+	}
+
+	public function updateAdd201files($id,$data){
+		$this->db->where('emp_id',$id)
+		->update('tbl_employees', $data);
+		return true;
+
+	}
+	public function updateAddSalary($id,$data){
+		$this->db->where('emp_id',$id)
+		->update('tbl_salary', $data);
+		return true;
+	}
+	public function updateAddReference($id,$data){
+		$this->db->where('emp_id',$id)
+		->update('tbl_character_reference', $data);
+		return true;
 	}
 	// public function getSalary($id){
 	// 	$this->db->select()

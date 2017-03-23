@@ -41,8 +41,8 @@
    	$data['activity']= "";
    	$data['activityList']= "";
    	$data['item']= "";
-   	$data['proposalsList']="active";
-   	$data['proposals']= "";
+   	$data['proposalsList']="";
+   	$data['proposals']= "active";
    	$data['itemList']= "";
    	$data['supervisor']= "";
    	$data['department']= "";

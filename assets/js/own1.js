@@ -1,7 +1,7 @@
 $('.submitEdit').click(function() {
     var data_upd = $('.edit').serialize();
 
-    alert(data_upd);
+    // alert(data_upd);
 
 });
 $('.editLeave').click(function() {
@@ -41,7 +41,6 @@ $('.editLeaveRequestForm1').click(function() {
         },
         success: function(success) {
             // var parse = JSON.parse(success);
-            alert(success);
             if (success === '1') {
                 toastr.success('Successfully Added!', '');
                 setTimeout(function() {
@@ -814,7 +813,6 @@ function view201($id){
             },
             success: function(success) {
                var parse = JSON.parse(success);
-               alert(parse);
                if(parse[0]['company']===1){
                     $company = "Agorra";
                }else{
@@ -1011,8 +1009,25 @@ $('.deleteItem').click(function() {
 });
 
 $('.update201file').click(function(){
-    var data_upd = $('.updateForm').serialize();
-    alert(data_upd);
+    var data_upd = $('.update201').serialize();
+    // alert(data_upd);
+    $.ajax({
+            type: 'GET',
+            url: 'update_201',
+            data: {
+                data_upd: data_upd
+            },
+            success: function(success) {
+                if (success === '1') {
+                    toastr.success('Successfully Updated!', '');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    alert('hi');
+                }
+            }
+        });
 })
 
 
