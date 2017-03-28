@@ -58,7 +58,7 @@ class UserPayslip extends CI_Controller
 		 $month = $this->input->Post('month');
 		 $term = $this->input->Post('term');
 		 $year = $this->input->Post('years');
-		$query = $this->MdFiles->getPayrollPaySlip($term,$month,$year,$this->session->userdata['emp_id']);
+		$query = $this->MdFiles->getPayrollPaySlip($term,$month,$year,$this->session->userdata['emp_no']);
 		return $query;
 	}
 }

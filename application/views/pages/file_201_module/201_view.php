@@ -4,7 +4,7 @@
 			<div class="col-lg-12">
 				<section class="panel">
 					<header class="panel-heading">
-						<h4>Very Player List</h4>
+						<h4>Employee List</h4>
 					</header>
 					<table class="table table-striped table-advance table-hover">
 						<thead>

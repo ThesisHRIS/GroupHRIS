@@ -13,7 +13,7 @@
 								<div class="col-lg-5">
 									<select name="emp_id" class="form-control" style="100%">
 										<?php foreach ($empInfo as $key) {?>
-											<option value="<?php echo $key['emp_id']?>"><?php echo $key['emp_id']."-".$key['last_name']?></option>
+											<option value="<?php echo $key['emp_id']?>"><?php echo $key['emp_id']." - ".$key['first_name']." ".$key['last_name']?></option>
 										<?php } ?>
 									</select>
 								</div>

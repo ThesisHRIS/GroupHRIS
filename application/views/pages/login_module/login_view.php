@@ -20,7 +20,7 @@
          <img id="logo" src="./img/optilogo.png" height="150" width="150" alt="Simpla Admin logo" />
          <p class="message" style="display: none"></p>
          <form id="log">
-            <!-- <?php $attributes = array('class' => 'login-form', 'id' => ''); echo form_open_multipart('Login/login', $attributes); ?> -->
+            <?php $attributes = array('class' => 'login-form', 'id' => ''); echo form_open_multipart('Login/login', $attributes); ?> 
             <input type="text" placeholder="username"  class ="uname" name="username"/>
             <input type="password" placeholder="password" class ="pass" name="pass"/>
             <button id="signIn" type="button">Sign In</button>

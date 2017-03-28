@@ -48,6 +48,13 @@ class Dashboard extends CI_Controller
 			$this->load->view("common/head",$data);
 			$this->load->view("common/header");
 			$this->load->view("common/nav");
+			$data['items'] = $this->MdDash->countItems();
+			$data['claimInfo']= $this->MdDash->getClaimInfo();
+			$data['activity']=$this->MdDash->countActivities();
+			$data['employee']=$this->MdDash->countEmployee();
+			$data['leaves']=$this->MdDash->countLeave();
+			$data['leave_request'] = $this->MdDash->getLeaveRequests();
+			$data['ot_forms'] = $this->MdDash->getOtRequests();
 			$this->load->view('pages/dashboard/dashboard',$data);
 			$this->load->view('common/foot');
 			$this->load->view('common/footer');
@@ -58,6 +65,16 @@ class Dashboard extends CI_Controller
 	}else{
 			redirect('/');
 		}
+		}
+
+		public function confirmItemClaim(){
+			$query = $this->MdDash->confirmItemClaim($this->input->get('id'));
+
+			if($query){
+				echo '1';
+			} else {
+				echo '0';
+			}
 		}
 }
 ?>

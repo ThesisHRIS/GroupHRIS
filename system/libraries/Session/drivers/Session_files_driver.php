@@ -149,17 +149,17 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 		if ($this->_file_handle === NULL)
 		{
 			// Just using fopen() with 'c+b' mode would be perfect, but it is only
-				// available since PHP 5.2.6 and we have to set permissions for new files,
-				// so we'd have to hack around this ...
-				if (($this->_file_new = ! file_exists($this->_file_path.$session_id)) === TRUE)
-				{
-				if (@($this->_file_handle = fopen($this->_file_path.$session_id, 'w+b')) === FALSE)
+			// available since PHP 5.2.6 and we have to set permissions for new files,
+			// so we'd have to hack around this ...
+			if (($this->_file_new = ! file_exists($this->_file_path.$session_id)) === TRUE)
+			{
+				if (($this->_file_handle = fopen($this->_file_path.$session_id, 'w+b')) === FALSE)
 				{
 					log_message('error', "Session: File '".$this->_file_path.$session_id."' doesn't exist and cannot be created.");
 					return FALSE;
 				}
 			}
-			elseif (@($this->_file_handle = fopen($this->_file_path.$session_id, 'r+b')) === FALSE)
+			elseif (($this->_file_handle = fopen($this->_file_path.$session_id, 'r+b')) === FALSE)
 			{
 				log_message('error', "Session: Unable to open file '".$this->_file_path.$session_id."'.");
 				return FALSE;
@@ -189,7 +189,7 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 		}
 
 		$session_data = '';
-		for ($read = 0, $length = @filesize($this->_file_path.$session_id); $read < $length; $read += strlen($buffer))
+		for ($read = 0, $length = filesize($this->_file_path.$session_id); $read < $length; $read += strlen($buffer))
 		{
 			if (($buffer = fread($this->_file_handle, $length - $read)) === FALSE)
 			{

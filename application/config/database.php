@@ -76,9 +76,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	// 'username' => 'myoptimind',
-	//  'password' => '2ndCTPMarikina!',
-	// 'database' => 'myoptimi_HRISv1',
+	 // 'username' => 'myoptimind',
+	 //  'password' => '2ndCTPMarikina!',
+	 // 'database' => 'myoptimi_FInalHRIS',
 	
 	'username' => 'root',
 	'password' => '',

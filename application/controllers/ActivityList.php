@@ -9,6 +9,8 @@ class ActivityList extends CI_Controller
 		$this->load->helper('url');
 		$this->load->library('form_validation');
 		$this->load->model('MdActivity');
+		$this->load->library('encrypt');
+
 	}
 
 	public function index(){
@@ -50,8 +52,8 @@ class ActivityList extends CI_Controller
 			$this->load->view("common/header");
 			$this->load->view("common/nav");
 			$data['activity'] =  $this->MdActivity->getActivity();
-			$this->load->view('modal/generateList');
 			$this->load->view('pages/gamification/viewActivity',$data);
+			$this->load->view('modal/addActivity');
 			$this->load->view('common/foot');
 			$this->load->view('common/footer');
 			}else{
@@ -69,10 +71,35 @@ class ActivityList extends CI_Controller
 			$contactName = parse_str($_GET['data'], $arrNew);
 			$array = array(
 					'activity_name'=>$arrNew['name'],
-					'date'=>$arrNew['date']
+					'date'=>$arrNew['date'],
+					
 				);
 
 			$query = $this->MdActivity->create($array);
+	}
+
+	public function getInfo(){
+		$attr_id = $this->input->get('_getAtt');
+		$resultClientList = $this->MdActivity->getActivity($attr_id);
+		echo $success = json_encode($resultClientList);	
+	}
+
+	public function start($id){
+		$query= $this->MdActivity->update_game_status($this->input->get('_getAtt'));
+		if ($query) {
+			echo '1';
+		}else{
+			echo '0';
+		}
+	}
+
+	public function end($id){
+		$query= $this->MdActivity->end_game($this->input->get('_getAtt'));
+		if ($query) {
+			echo '1';
+		}else{
+			echo '0';
+		}
 	}
 	
 }

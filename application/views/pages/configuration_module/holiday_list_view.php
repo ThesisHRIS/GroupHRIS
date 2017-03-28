@@ -33,10 +33,10 @@
 								<td><?php echo $list['holiday_type'] ?></td>							
 								<td><?php echo $company ?></td>							
 								<td>
-									<button class="btn btn-success btn-xs editholidaybutton" data_attr="<?php echo $this->encrypt->encode($list['holiday_id']); ?>" data-toggle="modal" data-target="#editHoliday" title="edit">
+									<button class="btn btn-success btn-xs editholidaybutton" data_attr="<?php echo $list['holiday_id']; ?>" data-toggle="modal" data-target="#editHoliday" title="edit">
                               			<i class="fa fa-pencil"></i>
                            			</button>									
-                                 	<button class="btn btn-danger btn-xs delete_client" mAtt="<?php echo $this->encrypt->encode($list['holiday_id']); ?>" title="trash"><i class="fa fa-trash-o "></i></button>
+                                 	<button class="btn btn-danger btn-xs delete_holiday" data_attr="<?php echo $list['holiday_id']; ?>" title="trash"><i class="fa fa-trash-o "></i></button>
                                  </td>
 							</tr>
 								<?php } ?>	

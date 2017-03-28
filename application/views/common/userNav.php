@@ -55,13 +55,15 @@
                   </ul>
               </li>
               <li class="sub-menu dcjq-parent-li">
-                  <a href="javascript:;" class="<?php echo $proposals; ?><?php echo $proposalsList; ?>">
+                  <a href="javascript:;" class="<?php echo $proposals; ?><?php echo $salaryConfig; ?>">
                       <i class="fa fa-book"></i>
                       <span>Gamification</span>
                   </a>
                   <ul class="sub">
-                       <li class="<?php echo $proposals; ?>"><a  href="<?php echo base_url(); ?>Votation">Voting</a>
+                       <li class="<?php echo $proposals; ?>"><a  href="<?php echo base_url(); ?>Votation">My Activities</a>
                       </li> 
+                      <li class="<?php echo $salaryConfig; ?>"><a  href="<?php echo base_url(); ?>UserActivityList">Activity List</a>
+                      </li>
                     <!--   <li class="<?php echo $proposalsList; ?>"><a  href="<?php echo base_url(); ?>UserPayslip">Payslip Generation</a></li> -->
                   </ul>
               </li>

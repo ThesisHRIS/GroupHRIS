@@ -2,37 +2,33 @@
 	<div class="wrapper">
 		<div class="row">
 			<div class="col-lg-12">
-				<!-- <?php echo form_open('Activity/create', array('name'=>'form1','class'=>'form-horizontal')) ?> -->
-				<form class="form-horizontal form1">
-					<section class="panel">
-						<header class="panel-heading">
-							<h4>Create Activity</h4>
-						</header>
-						<div class="panel-body">
-							<div class="form-group">
-								<div class="col-lg-12">
-									<div class="col-lg-3 control-label">Name Of Activity:</div>
-									<div class="col-lg-3" style="margin-left:-8%;">
-										<input type="text" class="form-control" name="name">
-									</div>
-									<div class="col-lg-3 control-label">Date of Activity:</div>
-									<div class="col-lg-3" style="margin-left:-8%;">
-										<input type="date" class="form-control" oninput="getDate();" name="date">
-									</div>
-									
-								</div>
-							</div>
-			
-							
-							<div class="form-group">
-								<div class="col-lg-4">
-									<button href="<?php echo base_url('Activity') ?>" class="btn btn-success" name="cancel">Cancel</button>
-									<button type="button" class="btn btn-success submitActivty" onclick="submitActivty();" name="submit">Submit</button>
-								</div>
-							</div>
-						</div>
-					</section>
-				</form>
+			<section class="panel">
+				<header class="panel-heading">
+                  <div class="form-group">
+                  <div class="col-lg-3 pull-right">
+                         <select name="company" class="form-control m-bot15" id='selectGame' required >
+                         <option>Game List</option>
+                              <?php foreach($activity as $data){ ?>
+                                 <option value="<?php echo $data['id'] ?>"><?php echo $data['activity_name'] ?></option>
+                              <?php } ?>
+                        </select>
+                     </div>
+                     <h4>Player List</h4>
+                     
+                  </div>
+            </header>
+   				<table class="table table-striped table-advance table-hover">
+                  <thead>
+                     <tr>
+                        <th>Player Name</th>
+                        <th>Current Points</th>
+                        <th>Action</th>
+                     </tr>
+                  </thead>
+                  <tbody id="playerList">
+                  </tbody>
+               </table>
+			</section>
 			</div>
 		</div>
 	</div>

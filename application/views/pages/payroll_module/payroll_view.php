@@ -9,7 +9,7 @@
 							<!-- <form  name="pay" class ="pay" > -->
 							 <?php $attributes = array('class' => '', 'id' => ''); echo form_open_multipart('AgorraPayroll/', $attributes); ?>
 						<div class="col-sm-3">
-							<select class="form-control" name="term">
+							<select class="form-control" name="term" id="term">
 							<option value = "1">1st</option>
 							<option value = "2">2nd</option>
 							</select>
@@ -17,7 +17,7 @@
 							<!-- <select name="month"> -->
 
 							<div class="col-sm-3" >
-							<select class="form-control" style="height:40px;" size="1" name="month">
+							<select class="form-control" style="height:40px;" size="1" name="month" id="month">
 							<option value = "1">January</option>
 							<option value = "2">February</option>
 							<option value = "3">March</option>
@@ -38,7 +38,7 @@
 								
 							<!-- </select> -->
 							<div class="col-sm-3">
-							<select class="form-control"  name="years">
+							<select class="form-control"  name="years" id="year">
 								<?php 
 									for($x = date("Y"); $x>=2000;$x--){
 										echo '<option value="'.$x.'">'.$x.'</option>';
@@ -60,7 +60,8 @@
 									<th>Payment Month</th>
 									<th>Payment Quarter</th>
 									<th>Employee Name</th>
-									<th>OT Num</th>
+									<th>Action</th>
+									<!-- <th>OT Num</th>
 									<th>OT Hours</th>
 									<th>OT Pay</th>
 									<th>Tardy Num</th>
@@ -76,7 +77,7 @@
 									<th>tax</th>
 									<th>Cash Advance</th>
 									<th>other deduction</th>
-									<th>Net pay</th>
+									<th>Net pay</th> -->
 								</tr>
 									<?php if(@$payroll){foreach ($payroll as $key) {?>
 									<tr>
@@ -84,7 +85,12 @@
 										<td><?php echo $key['payment_month'] ?></td>
 										<td><?php echo $key['payment_quarter'] ?></td>
 										<td><?php echo $key['last_name'].','.$key['first_name'] ?></td>
-										<td><?php echo $key['ot_num'] ?></td>
+										<td>
+											<button class="btn btn-success btn-xs viewPayroll" data_attr="<?php echo $key['emp_id'] ?>" data-toggle="modal" data-target="#viewPayroll" title="View">
+												<i class="fa fa-eye"></i> View
+											</button>
+										</td>
+										<!-- <td><?php echo $key['ot_num'] ?></td>
 										<td><?php echo $key['ot_hours'] ?></td>
 										<td><?php echo $key['ot_pay'] ?></td>
 										<td><?php echo $key['tardy_num'] ?></td>
@@ -100,7 +106,7 @@
 										<td><?php echo $key['tax'] ?></td>
 										<td><?php echo $key['cash_advance'] ?></td>
 										<td><?php echo $key['other_deduc'] ?></td>
-										<td><?php echo $key['net_pay'] ?></td>
+										<td><?php echo $key['net_pay'] ?></td> -->
 
 									</tr>
 									<?php } } ?>

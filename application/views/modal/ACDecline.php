@@ -4,7 +4,7 @@
       <div class="modal-header" style="background:#78cd51!important">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
        
-        <h4 class="modal-title" id="exampleModalLabel"> DECLINE CASh ADVANCE?</h4>
+        <h4 class="modal-title" id="exampleModalLabel"> DECLINE CASH ADVANCE?</h4>
       </div>
       <div class="modal-body">
        <div class="row">
@@ -18,7 +18,7 @@
                                       
                                     <input type="hidden" class="ca_id" name="">
 
-                                    <label>Reason for Declined:</label>
+                                    <label>Reason for Declining:</label>
                                     <textarea class = "form-control reason"></textarea>
                                     <input type="button" class ="btn btn-success declineAC" name="" value="Decline">
                             </form>

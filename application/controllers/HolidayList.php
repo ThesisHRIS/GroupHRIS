@@ -49,6 +49,7 @@ class HolidayList extends CI_Controller
 			$this->load->view("common/header");
 			$this->load->view("common/nav");
 			$data['list']= $this->MdHolidays->getAll();
+			$data['company'] = $this->MdHolidays->getCompany();
 			$this->load->view('pages/configuration_module/holiday_list_view',$data);
 			$this->load->view('modal/editHoliday');
 			$this->load->view('common/foot');
@@ -60,6 +61,35 @@ class HolidayList extends CI_Controller
 	}else{
 			redirect('/');
 		}
+	}
+
+	public function getInfo(){
+
+		$attr_id = $this->input->get('id');
+		$resultClientList = $this->MdHolidays->getAll($attr_id);
+		echo $success = json_encode($resultClientList);
+	}
+
+	public function deleteHoliday(){
+		$query = $this->MdHolidays->deleteHoliday($this->input->get('id'));
+
+		echo $success = json_encode($query);
+	}
+
+	public function updateHoliday(){
+		$arrNew = array();
+		$contactName = parse_str($_GET['data_upd'], $arrNew);
+
+		$array = array(
+			'holiday_name'=>$arrNew['holiday_name'],
+			'holiday_date'=>$arrNew['holiday_date'],
+			'holiday_type'=>$arrNew['holiday_type'],
+			'company'=>$arrNew['company']
+		);
+
+		print_r($array);
+
+		$query = $this->MdHolidays->updateHoliday($arrNew['holidayId'], $array);
 	}
 
 }

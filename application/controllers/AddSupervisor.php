@@ -60,7 +60,13 @@ class AddSupervisor extends CI_Controller
 					'department'=>$this->input->post('department')
 				);
 
-			$this->MdSupervisor->insert($data);
+			$query = $this->MdSupervisor->insert($data);
+
+			if($query){
+				echo "1";
+			} else {
+				echo "0";
+			}
 
 	}
 }

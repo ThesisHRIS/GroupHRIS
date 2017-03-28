@@ -21,6 +21,15 @@ class Suspension_form_model extends CI_Model{
 			);
 
 		$this->db->insert('tbl_suspension', $data);
+
+		$array = array(
+			'status'=>'Inactive'
+		);
+
+		$this->db->where('emp_id', $empId)
+		->update('tbl_employees', $array);
+
+		return true;
 	}
 	public function getAll(){
 		$this->db->select()

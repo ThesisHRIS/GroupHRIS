@@ -17,7 +17,7 @@
                   </a>
                   <ul class="sub">
                       <li class="<?php echo $active201; ?>"><a  href="<?php echo base_url(); ?>Add201File"> New 201 Files</a></li>
-                      <li class="<?php echo $active201View; ?>"><a  href="<?php echo base_url(); ?>View_201">View 201 Files</a></li>
+                      <li class="<?php echo $active201View; ?>"><a  href="<?php echo base_url(); ?>View_201" onlick="displayStatus()">View 201 Files</a></li>
                   </ul>
               </li>
 
@@ -44,12 +44,6 @@
                       </li>
                       <li class="<?php echo $leaveHistory; ?>">
                         <a  href="<?php echo base_url(); ?>LeaveHistory">Leave History</a>
-                      </li> 
-                      <li class="<?php echo $leaveIncentives; ?>">
-                        <a  href="<?php echo base_url(); ?>Incentive">Leave Incentive</a>
-                      </li>
-                      <li class="<?php echo $leaveSummary; ?>">
-                        <a  href="<?php echo base_url();?>LeaveSummary">Leave Summary</a>
                       </li> 
                       <li class="<?php echo $OtRequest; ?>"><a  href="<?php echo base_url(); ?>OtRequest">OT Request</a></li>
                       <li class="<?php echo $OtHistory; ?>"><a  href="<?php echo base_url(); ?>OtHistory">OT History</a></li>
@@ -87,8 +81,8 @@
                       <span>Gamification</span>
                   </a>
                   <ul class="sub">
-                      <li class="<?php echo $activity; ?>"><a  href="<?php echo base_url(); ?>Activity">Create Activity</a></li>
-                      <li class="<?php echo $activityList; ?>"><a  href="<?php echo base_url(); ?>ActivityList">List Of Activity</a></li>
+                      <li class="<?php echo $activityList; ?>"><a  href="<?php echo base_url(); ?>ActivityList">Manage Activity</a></li>
+                      <li class="<?php echo $activity; ?>"><a  href="<?php echo base_url(); ?>Activity">Manage Players</a></li>
                       <li class="<?php echo $item; ?>"><a  href="<?php echo base_url(); ?>AddItem">Add Item</a></li>
                       <li class="<?php echo $itemList; ?>"><a  href="<?php echo base_url(); ?>ViewItem">List Of Item</a></li>
                       

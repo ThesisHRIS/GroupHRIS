@@ -8,8 +8,8 @@
       					<i class="fa fa-user"></i>
       				</div>
               <div class="value">
-                <span style="font-size:36px;">495</span>
-                <p>New Users</p>
+                <span style="font-size:36px;"><?php echo $employee ?></span>
+                <p><strong>No of Employees</strong></p>
               </div>
       			</section>
       		</div>
@@ -19,8 +19,8 @@
                 <i class="fa fa-tags"></i>
               </div>
               <div class="value">
-                <span style="font-size:36px;">974</span>
-                <p>Sales</p>
+                <span style="font-size:36px;"><?php echo $leaves ?></span>
+                <p><strong>No of Leaves not yet Approved</strong></p>
               </div>
             </section>
           </div>
@@ -30,8 +30,8 @@
                 <i class="fa fa-shopping-cart"></i>
               </div>
               <div class="value">
-                <span style="font-size:36px;">328</span>
-                <p>New Order</p>
+                <span style="font-size:36px;"><?php echo $items ?></span>
+                <p><strong>No of Items</strong></p>
               </div>
             </section>
           </div>
@@ -41,102 +41,97 @@
                 <i class="fa fa-bar-chart-o"></i>
               </div>
               <div class="value">
-                <span style="font-size:36px;">10328</span>
-                <p>New Profit</p>
+                <span style="font-size:36px;"><?php echo $activity ?></span>
+                <p><strong>No of Activities</strong></p>
               </div>
             </section>
           </div>
       </div>
       <!-- user info -->
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <section class="panel">
             <div class="panel-body">
-              <a href="#" class="task-thumb">
-                <img src="./img/avatar1.jpg" alt>
-              </a>
               <div class="task-thumb-details">
-                <a href="#">Angelina Jolie</a>
-                <p>Senior Architect</p>
+                <h1>Leave Requests</h1>
               </div>
             </div>
             <table class="table table-hover personal-task">
+            <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
               <tbody>
+                <?php foreach($leave_request as $data){ ?>
                 <tr>
-                  <td><i class="fa fa-tasks"></i></td>
-                  <td>New Task Issued</td>
-                  <td>02</td>
+                  <td><?php echo $data['first_name']." ".$data['last_name'] ?></td>
+                  <td><?php echo $data['type'] ?></td>
                 </tr>
-                <tr>
-                  <td><i class="fa fa-exclamation-triangle"></i></td>
-                  <td>Task Pending</td>
-                  <td>14</td>
-                </tr>
-                <tr>
-                  <td><i class="fa fa-envelope"></i></td>
-                  <td>Inbox</td>
-                  <td>45</td>
-                </tr>
-                <tr>
-                  <td><i class="fa fa-bell-o"></i></td>
-                  <td>New Notification</td>
-                  <td>09</td>
-                </tr>
+                <?php } ?>
               </tbody>
             </table>
           </section>
         </div>
 
-        <div class="col-lg-8">
+        <div class="col-lg-3">
           <section class="panel">
-            <div class="panel-body progress-panel">
-              <div class="task-progress">
-                <a href="#">WorkProgress</a>
-                <p>Angelina Jolie</p>
+            <div class="panel-body">
+              <div class="task-thumb-details">
+                <h1>Ot Requests</h1>
               </div>
             </div>
             <table class="table table-hover personal-task">
+                 <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Total Hours</th>
+                </tr>
+              </thead> 
               <tbody>
+                <?php foreach($ot_forms as $data){ ?>
                 <tr>
-                  <td>1</td>
-                  <td>Target Sell</td>
-                  <td><span class="badge bg-important">75%</span></td>
-                  <td>
-                    <span>Done</span>
+                  <td><?php echo $data['first_name']." ".$data['last_name'] ?></td>
+                  <td><?php echo $data['total_hours'] ?></td>
+                </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+          </section>
+        </div>
+
+        <div class="col-lg-6">
+          <section class="panel">
+            <div class="panel-body progress-panel">
+              <div class="task-progress">
+                <h1>Items to be Claimed</h1>
+              </div>
+            </div>
+            <table class="table table-hover personal-task">
+              <thead>
+                <tr>
+                  <th>Claimed By</th>
+                  <th>Item Name</th>
+                  <th>Claimed On</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach($claimInfo as $data){ ?>
+                <tr>
+                  <td><?php echo $data['first_name'] ." ".$data['last_name'] ?></td>
+                  <td><?php echo $data['item'] ?></td>
+                  <td><?php echo $data['date'] ?></td>
+                  <td style="text-align:left">
+                    <?php if($data['status']==0){ ?>
+                      <button class="btn btn-success btn-xs" id="confirm" data_attr="<?php echo $data['claim_history_id'] ?>">Confirm</button>
+                    <?php } else { ?>
+                      <span class="badge bg-info">Claimed!</span>
+                    <?php } ?>
                   </td>
                 </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Product Delivery</td>
-                  <td><span class="badge bg-success">43%</span></td>
-                  <td>
-                    <span>Done</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Payment Collection  </td>
-                  <td><span class="badge bg-info">67%</span></td>
-                  <td>
-                    <span>Done</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Work Progress</td>
-                  <td><span class="badge bg-warning">30%</span></td>
-                  <td>
-                    <span>Done</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>Delivery Pending</td>
-                  <td><span class="badge bg-primary">15%</span></td>
-                  <td>
-                    <span>Done</span>
-                  </td>
-                </tr>
+                <?php } ?>
               </tbody>
             </table>
           </section>

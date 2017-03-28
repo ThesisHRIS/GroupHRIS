@@ -48,10 +48,12 @@ class Votation extends CI_Controller
 			$this->load->view("common/header");
 			$this->load->view("common/userNav");
 			$data['emp_id']= $this->Leave_form_model->getEmp_idList($this->session->userdata('emp_id'));
-			$data['activity']= $this->Leave_form_model->getActivity();
+			$data['activity']= $this->Leave_form_model->getGameJoined();
 			$data['supervisor']= $this->Leave_form_model->getSupervisor();
+			$data['myActivity']= $this->Leave_form_model->getGameJoined();
 			// print_r($data);
 			$this->load->view('pages/gamification/votation',$data);
+			$this->load->view('modal/price');
 			$this->load->view('common/foot');
 			$this->load->view('common/footer');
 			}else{

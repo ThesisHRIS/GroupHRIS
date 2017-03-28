@@ -32,5 +32,19 @@ class MdHolidays extends CI_Model
 
 		return $query->result_array();
 	}
+
+	public function deleteHoliday($id){
+		$array = array(
+			'holiday_id'=> $id
+		);
+		$this->db->delete('tbl_holiday', $array);
+	}
+
+	public function updateHoliday($id, $data){
+		$this->db->where('leave_id', $id)
+		->update('tbl_leave_forms', $final);
+
+		return true;
+	}
 }
 ?>

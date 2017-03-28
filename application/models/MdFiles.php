@@ -396,6 +396,17 @@ class MdFiles extends CI_Model {
 		->update('tbl_character_reference', $data);
 		return true;
 	}
+	public function getPercentage($salary,$tax_id){
+		$this->db->select()
+		->from('tbl_percentage')
+		->where('range_from < ',$salary)
+		->where('range_to >',$salary)
+		->where('tax_id',$tax_id);
+
+		$query = $this->db->get();
+
+		return $query->result_array();
+	}
 	// public function getSalary($id){
 	// 	$this->db->select()
 	// 	->from('tbl_salary')
@@ -405,6 +416,16 @@ class MdFiles extends CI_Model {
 
 	// 	return $query->result_array();
 	// }
+
+	public function getEmployeeStatus($id){
+		$this->db->select()
+		->from('tbl_suspension')
+		->where('emp_id', $id);
+
+		$query = $this->db->get();
+
+		return $query->result_array();
+	}
 }
 
 ?>

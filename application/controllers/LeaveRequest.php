@@ -152,39 +152,6 @@ class LeaveRequest extends CI_Controller
 		$arrNew = array();
 		$data = parse_str($_GET['data'], $arrNew);
 
-		$query = $this->leave_form_model->leaveCount($this->session->userdata('emp_id'));
-		// print_r($query[]);
-		 $counter = 0;
-		foreach ($query as $count) {echo $count['type'];	
-			if($count['type']===$arrNew['type']){
-				$counter = (int)$counter + (int)$count['withPayCount'];
-			}
-		}
-		
-			
-		$counter1 =0;
-		if($arrNew['type']==='VL'){
-			if($counter >= 10){
-				$counter =0;
-				// echo $count;
-			}else{
-				$counter1 = 10 - $counter;
-				// echo $count;
-				$counter =  $counter1>$arrNew['days']?$arrNew['days']:$counter1;
-
-			}
-			// echo $counter;
-		}
-		if($arrNew['type']==='SL'){
-			if($counter >= 5){
-				$counter =0;
-			}else{
-				$counter1 = 5 - $counter;
-				$counter =  $counter1>$arrNew['days']?$arrNew['days']:$counter1;
-
-			}
-		}
-		$sub = $arrNew['days']-$counter;
 
 		$array = array(
 				'emp_id' => $this->session->userdata('emp_id'),
@@ -196,8 +163,8 @@ class LeaveRequest extends CI_Controller
 				'supervisor_id'=>$arrNew['supervisor_id'],
 				'comments'=>$arrNew['comments'],
 				'status'=>'Pending',
-				'withPayCount' => $counter."",
-				'DateLeaveLimit'=> date('Y-m-d', strtotime('-'.$sub.' day', strtotime($arrNew['end_date'])))
+				'withPayCount' =>'',
+				'DateLeaveLimit'=> ''
 			);
 		// print_r($array);
 		$config =array(
@@ -220,22 +187,14 @@ class LeaveRequest extends CI_Controller
 			$this->email->message($this->session->userdata('last_name').' is requesting for a formal leave because: '.$arrNew['comments'].' From: '. $arrNew['start_date'].'To: '.$arrNew['end_date']);
 			
 
-	if($arrNew['type']!='0'&&$arrNew['supervisor_id']!='1'){
-			// echo 'nico';
-		if(in_array(null, $array)!='1'){
-			// echo 'nico';
 			if($this->leave_form_model->insertLeave($array)){
 				$this->email->send();
 				echo '1';
 			}else{
 				echo '0';
 			}
-		}else{
-		echo '0';
-		}
-	}else{
-		echo '0';
-	}
+		
+	
 	}
 
 }

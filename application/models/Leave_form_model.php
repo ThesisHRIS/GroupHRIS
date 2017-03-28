@@ -164,6 +164,16 @@ class Leave_form_model extends CI_Model{
 		$this->db->insert('tbl_leave_forms',$data);
 		return true;
 	}
+	public function getGameJoined(){
+		$this->db->select()
+		->from('tbl_points_history as history')
+		->join('tbl_activity as activity','history.activity_id = activity.id')
+		->where('emp_id', $this->session->userdata('emp_id'));
+
+		$query= $this->db->get();
+
+		return $query->result_array();
+	}
 }
 
 

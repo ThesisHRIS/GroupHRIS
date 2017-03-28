@@ -128,21 +128,14 @@ class OtRequestHistory extends CI_Controller
 
 		// print_r($array);
 		// echo in_array(null, $array);
-	if($arrNew['supervisor_id']!='1'){
-			// echo 'nico';
-		if(in_array(null, $array)!='1'){
+	
 			// echo 'nico';
 			if($this->ot_form_model->saveOT($array)){
 				echo '1';
 			}else{
 				echo '0';
 			}
-		}else{
-		echo '0';
-		}
-	}else{
-		echo '0';
-	}
+		
 	}
 }
 ?>

@@ -41,6 +41,7 @@ $('.editLeaveRequestForm1').click(function() {
         },
         success: function(success) {
             // var parse = JSON.parse(success);
+            //alert(success);
             if (success === '1') {
                 toastr.success('Successfully Added!', '');
                 setTimeout(function() {
@@ -367,7 +368,7 @@ $('.otRequest').click(function() {
         success: function(success) {
 
             if (success === '1') {
-                alert(success);
+                //alert(success);
                 window.location = 'OtRequest';
             } else {
                 alert('error');
@@ -938,7 +939,7 @@ function submitCSV(filename){
             filename: filename
         },
         success: function(success) {
-            alert(success);
+            // alert(success);
            if (success === '1') {
                     toastr.success('Successfully Done!', '');
                     setTimeout(function() {
@@ -1032,33 +1033,272 @@ $('.update201file').click(function(){
 
 
 $('.editholidaybutton').click(function() {
-    var data = $('.editHoliday').serialize();
-    var id = $('.holidayId').val();
-    alert(data);
+    var id = $(this).attr('data_attr');
+    // alert(id);
     $.ajax({
         type: 'GET',
-        url: 'LeaveRequest/update',
+        url: 'HolidayList/getInfo',
         data: {
-            data: data,
             id: id
         },
         success: function(success) {
-            // var parse = JSON.parse(success);
-            // alert(success);
-            $('.emp_no').val(parse[0]['emp_no']);
-               $('.company').val($company);
-               $('.name').val(parse[0]['last_name']+','+parse[0]['first_name']);
-               $('.date_birth').val(parse[0]['birth_date']);
-               $('.mstatus').val(parse[0]['civil_status']);
-               $('.placeDate').val(parse[0]['birth_place']);
-               $('.nationality').val(parse[0]['nationality']);
-               $('.religion').val(parse[0]['religion']);
-               $('.email').val(parse[0]['email']);
-               $('.number').val(parse[0]['contact_number']);
-               $('.haddress').val(parse[0]['address']);
-               $('.hnumber').val(parse[0]['phone']);
-
+            var parse = JSON.parse(success);
+            $('.holidayId').val(parse[0]['holiday_id']);
+            $('.holidayname').val(parse[0]['holiday_name']);
+            $('.holidaydate').val(parse[0]['holiday_date']);
+            $('.type').val(parse[0]['holiday_type']);
+            $('.company').val(parse[0]['company']);
         }
     });
 
 });
+
+$('.updateHoliday').click(function(){
+    var data_upd = $('.editHoliday').serialize();
+    alert(data_upd);
+    $.ajax({
+            type: 'GET',
+            url: 'HolidayList/updateHoliday',
+            data: {
+                data_upd: data_upd
+            },
+            success: function(success) {
+                if (success === '1') {
+                    toastr.success('Successfully Updated!', '');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    alert('hi');
+                }
+            }
+        });
+})
+
+$('.delete_holiday').click(function() {
+    var id = $(this).attr('data_attr');
+    // alert(id);
+    $.ajax({
+        type: 'GET',
+        url: 'HolidayList/deleteHoliday',
+        data: {
+            id: id
+        },
+        success: function(success) {
+            toastr.success('Successfully Deleted!', '');
+            setTimeout(function() {
+                location.reload();
+            }, 1000);
+        }
+    });
+
+});
+
+
+$('.startActivity').click(function() {
+    toastr.info('Start Game?<br/><br/><button type="button" class="btn btn-success approved" id="yes">Yes</button>', '')
+    var _getAtt = $(this).attr('data_attr');
+
+    $('#yes').click(function() {
+        $.ajax({
+            type: 'GET',
+            url: 'ActivityList/start',
+            data: {
+                _getAtt: _getAtt
+            },
+            success: function(success) {
+                if (success === '1') {
+                    alert('hi');
+                } else {
+                    toastr.success('Game has Officially Started!', '');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                }
+            }
+        });
+    });
+});
+
+$('.endActivity').click(function() {
+    toastr.info('End Game?<br/><br/><button type="button" class="btn btn-success approved" id="yes">Yes</button>', '')
+    var _getAtt = $(this).attr('data_attr');
+
+    $('#yes').click(function() {
+        $.ajax({
+            type: 'GET',
+            url: 'ActivityList/end',
+            data: {
+                _getAtt: _getAtt
+            },
+            success: function(success) {
+                if (success === '1') {
+                    alert('hi');
+                } else {
+                    toastr.success('Game has Ended!', '');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                }
+            }
+        });
+    });
+});
+
+$('.joinOngoing').click(function(){
+    toastr.info('Cannot join Game it has already started!', '')
+});
+
+$('.joinGame').click(function(){
+    var activity_id = $(this).attr('data_attr');
+        $.ajax({
+            type: 'GET',
+            url: 'UserActivityList/save',
+            data: {
+                activity_id: activity_id
+            },
+            success: function(success) {
+                if (success === '1') {
+                   toastr.success('Joined Successfully!', '');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    alert('hi');
+                }
+            }
+        });
+});
+
+$('#selectGame').change(function(){
+    var game_id = $('#selectGame').val();
+
+    $.ajax({
+        type: 'GET',
+        url: 'Activity/getPlayerList',
+        data: {
+            game_id: game_id
+        },
+        success: function(result) {
+                console.log(result[0]);
+                var listStr = '';
+                for (var key in result) {
+                    if (result.hasOwnProperty(key)) {
+                      var val = result[key];
+                      if(val.status)
+                      listStr += '<tr><td>'+val.first_name+ ' '+val.last_name+'</td>';
+                      listStr += '<td><div id="test1'+val.emp_id+'">'+val.points+'</div></td>';
+                      if (val.status == 0) {
+                          listStr += '<td><div id="test'+val.emp_id+'"><button class="btn btn-success btn-sm" onclick=approvePlayer('+val.emp_id+','+game_id+','+val.game_points+','+val.points+')>Approve</button> <button class="btn btn-danger btn-sm" onclick=rejectPlayer('+val.emp_id+','+game_id+','+val.game_points+')>Reject</button></div></td>'
+                      } else if(val.status == 1){
+                          listStr += '<td>Approved</td>'
+                      } else {
+                         listStr += '<td>Rejected</td>'
+                      }
+                      listStr += '</tr>';
+                    }
+                }
+                $('#playerList').html(listStr);
+            }
+        });
+
+});
+
+function approvePlayer(emp_id, game_id, game_points, points)  {
+    $.ajax({
+        type: 'GET',
+        url: 'Activity/approvePlayer',
+        data: {
+            game_id: game_id,
+            emp_id : emp_id,
+            game_points : game_points
+        },
+        success: function(result) {
+              if (result === '1') {
+                   toastr.success('Approved', '');
+                   $('#test' + emp_id).html('Approved');
+                   $('#test1' + emp_id).html(game_points);
+                } else {
+                    alert('hi');
+                }
+            }
+        });
+}
+
+function rejectPlayer(emp_id, game_id, game_points)  {
+    $.ajax({
+        type: 'GET',
+        url: 'Activity/rejectPlayer',
+        data: {
+            game_id: game_id,
+            emp_id : emp_id
+        },
+        success: function(result) {
+              if (result === '1') {
+                   toastr.error('Rejected', '');
+                   $('#test' + emp_id).html('Rejected');
+                } else {
+                    alert('hi');
+                }
+            }
+        });
+}
+
+$('#claimPrice').click(function(){
+    var id = $(this).attr('data_attr');
+        $.ajax({
+            type: 'GET',
+            url: 'UserDashboard/claimPrice',
+            data: {
+                id: id
+            },
+            success: function(success) {
+                if (success === '1') {
+                   toastr.success('Claim your token at HR!', '');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    alert('hi');
+                }
+            }
+        });
+});
+
+$('#confirm').click(function(){
+    var id = $(this).attr('data_attr')
+
+        $.ajax({
+            type: 'GET',
+            url: 'Dashboard/confirmItemClaim',
+            data: {
+                id:id
+            },
+            success: function(success) {
+                if(success === '1'){
+                    toastr.success('Confirmed', '');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    toastr.error('Nothing here', '');
+                }
+            }
+        });
+});
+
+$('.viewPayroll').click(function(){
+    var id = $(this).attr('data_attr')
+    var term = $('#term').val();
+    var month = $('#month').val();
+    var year = $('#year').val();
+
+    alert(id);
+    alert(term);
+    alert(month);
+    alert(year);
+
+});
+
+
+

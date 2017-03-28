@@ -49,6 +49,8 @@ class Activity extends CI_Controller
 			$this->load->view("common/head",$data);
 			$this->load->view("common/header");
 			$this->load->view("common/nav");
+			$data['activity']=$this->MdActivity->getActivity();
+			$data['playerlist']= $this->MdActivity->getPlayers($this->input->get('game_id'));
 			$this->load->view('pages/gamification/activity',$data);
 			$this->load->view('common/foot');
 			$this->load->view('common/footer');
@@ -68,8 +70,9 @@ class Activity extends CI_Controller
 
 			$array = array(
 					'activity_name'=>$arrNew['name'],
-					'status'=>'Pending',
-					'activity_date'=>$arrNew['date']
+					'status'=>'Preparing Game',
+					'activity_date'=>$arrNew['date'],
+					'game_points' => '1000'
 					
 				);
 
@@ -79,6 +82,34 @@ class Activity extends CI_Controller
 			}else{
 				echo '0';
 			}
+	}
+	public function getPlayerList(){
+		$attr_id = $this->input->get('game_id');
+		$resultClientList = $this->MdActivity->getPlayers($attr_id);
+		header('Content-Type: application/json');
+		echo $success = json_encode($resultClientList);	
+	}
+
+	public function approvePlayer(){
+		$query = $this->MdActivity->approvePlayer($this->input->get('emp_id'), $this->input->get('game_id'), $this->input->get('game_points'));
+
+		if($query){
+			echo '1';
+		} else {
+			echo '0';
+		}
+
+		$query = $this->MdActivity->addToOverAllPoints($this->input->get('emp_id'),$this->input->get('game_points'));
+	}
+
+	public function rejectPlayer(){
+		$query = $this->MdActivity->rejectPlayer($this->input->get('emp_id'), $this->input->get('game_id'));
+
+		if($query){
+			echo '1';
+		} else {
+			echo '0';
+		}
 	}
 	
 	
