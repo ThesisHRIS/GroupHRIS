@@ -52,7 +52,7 @@
                    <?php } ?></th>
                   </tr>
                   <tr>
-                  <th>Emp_id</th>
+                  <th>Employee No</th>
                   <th>Date</th>
                   <th>Day</th>
                   <th>Time in</th>

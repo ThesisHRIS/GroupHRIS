@@ -387,6 +387,7 @@ $('.add201File').click(function() {
             data_upd: data_upd
         },
         success: function(success) {
+            alert(success);
             if (success === '1') {
                 toastr.success('Successfully added File', '');
                 setTimeout(function() {
@@ -645,7 +646,7 @@ function getDate() {
     $start = new Date(date1);
     $end = new Date(date2);
 
-    $count = 0;
+    $count = 1;
 
     while ($start <= $end) {
 
@@ -663,8 +664,8 @@ function getDate() {
         $('#total').val('');
         $('.error_date').text('');
 
-        if (date1 != "" && date2 != "") {
-            if (date2parse > date1parse) {
+        if (date1 != "" && date2 !== "") {
+            if (date2parse >= date1parse) {
                 $('#total').val($count - 1);
                 $('.error_date').text('');
             } else {
@@ -939,7 +940,6 @@ function submitCSV(filename){
             filename: filename
         },
         success: function(success) {
-            // alert(success);
            if (success === '1') {
                     toastr.success('Successfully Done!', '');
                     setTimeout(function() {
@@ -1288,15 +1288,36 @@ $('#confirm').click(function(){
 });
 
 $('.viewPayroll').click(function(){
-    var id = $(this).attr('data_attr')
-    var term = $('#term').val();
-    var month = $('#month').val();
-    var year = $('#year').val();
+    var id = $(this).attr('data_attr');
+    $.ajax({
+    type: 'GET',
+    url: 'AgorraPayroll/getPayrollData',
+    data: {
+        id:id
+    },
+    success: function(success) {
+        var parse = JSON.parse(success);
 
-    alert(id);
-    alert(term);
-    alert(month);
-    alert(year);
+        $('.OT_num').html(parse[0]['ot_num']);
+        $('.OT_hour').html(parse[0]['ot_hours']);
+        $('.OT_pay').html(parse[0]['ot_pay']);
+        $('.Tardy_num').html(parse[0]['tardy_num']);
+        $('.Tardy_deduction').html(parse[0]['tardy_deduc']);
+        $('.Absent_num').html(parse[0]['absent_num']);
+        $('.Absent_deduction').html(parse[0]['absent_deduc']);
+        $('.Hour_rate').html(parse[0]['hour_rate']);
+
+        $('.gross_pay').html(parse[0]['gross_pay']);
+        $('.sss').html(parse[0]['sss']);
+        $('.PhilHealth').html(parse[0]['philhealth']);
+        $('.Pagibig').html(parse[0]['pagibig']);
+        $('.tax').html(parse[0]['tax']);
+        $('.cash_advance').html(parse[0]['cash_advance']);
+        $('.other_deduction').html(parse[0]['other_deduc']);
+        $('.netpay').html(parse[0]['net_pay']);
+        $('.day_rate').html(parse[0]['day_rate']);
+    }
+});
 
 });
 

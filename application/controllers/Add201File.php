@@ -89,7 +89,9 @@ class Add201File extends CI_Controller
 	public function saveForm(){
 		$arrNew = array();
 		$contactName = parse_str($_GET['data_upd'], $arrNew);
-		$array = array(
+		// echo in_array(null, $arrNew, true);
+		if(!in_array(null, $arrNew)){
+			$array = array(
 			'emp_no'=>$arrNew['emp_no'],
 			'company_id'=>$arrNew['company'],
 			'last_name'=>ucfirst($arrNew['last_name']),
@@ -174,6 +176,9 @@ class Add201File extends CI_Controller
 			}else{
 				echo '0';
 			}	
+		}else{
+			echo '0';
+		}
 	
 	}
 	public function update_201(){
@@ -232,9 +237,9 @@ class Add201File extends CI_Controller
 			'status'=>$arrNew['status']
 		);
 		$query=$this->MdFiles->updateAdd201files($arrNew['emp_id'],$array);
-		$id=  $this->MdFiles->getEmp_id();
+		
 		$array1 = array(
-			'emp_id'=>$id[0]['emp_id'],
+			'emp_id'=>$arrNew['emp_id'],
 			'basic'=>$this->encrypt->encode($arrNew['basic'].SALT),
 			'ecola'=>$arrNew['ecola'],
 			'other'=>$arrNew['other'],

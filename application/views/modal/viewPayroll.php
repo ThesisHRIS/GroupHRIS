@@ -15,13 +15,20 @@
                     <th>OT Pay</th>
                     <th>Tardy Num</th>
                     <th>Tardy deduction</th>
-                    <th>Absent_num</th>
+                    <th>Absent num</th>
                     <th>Absent deduction</th>
                     <th>Hour Rate</th>
                   </tr>
                 </thead>
                 <tbody>
-                  
+                     <td class='OT_num'></td>
+                     <td class='OT_hour'></td>
+                     <td class='OT_pay'></td>
+                     <td class='Tardy_num'></td>
+                     <td class='Tardy_deduction'></td>
+                     <td class='Absent_num'></td>
+                     <td class='Absent_deduction'></td>
+                     <td class='Hour_rate'></td>
                 </tbody>
               </table>
               <br/>
@@ -41,7 +48,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  
+                   <td class='day_rate'></td>
+                   <td class='gross_pay'></td>
+                   <td class='sss'></td>
+                   <td class='PhilHealth'></td>
+                   <td class='Pagibig'></td>
+                   <td class='tax'></td>
+                   <td class='cash_advance'></td>
+                   <td class='other_deduction'></td>
+                   <td class='netpay'></td>
                 </tbody>
               </table>
             </div>

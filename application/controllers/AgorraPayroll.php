@@ -56,7 +56,8 @@
    	$data['payroll'] = $this->generatePayroll(); //print_r($data); 
       // print_r($data);
    	// $data['activity'] = $this->MdActivity->getActivity(); 
-   	$this->load->view('pages/payroll_module/payroll_view',$data);
+      $this->load->view('pages/payroll_module/payroll_view',$data);
+   	$this->load->view('modal/viewPayroll',$data);
    	$this->load->view('common/foot');
    	$this->load->view('common/footer');
    	}else{
@@ -78,8 +79,15 @@
 	
 		
 	}
+
+   public function getPayrollData(){
+  
+      // echo $attr_id;
+      $resultClientList = $this->MdFiles->getPayrollWithId($this->input->get('id'));
+      echo $success = json_encode($resultClientList);
    }
+}
    
    
 
-   ?>
+?>

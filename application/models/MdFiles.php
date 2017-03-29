@@ -221,10 +221,12 @@ class MdFiles extends CI_Model {
 		$this->db->insert('tbl_attendance',$data);
 		return true;
 	}
-	public function getAttendance($emp_id){
+	public function getAttendance($emp_id,$start_date,$end_date){
 		$this->db->select()
 		->from('tbl_attendance')
-		->where('emp_id',$emp_id);
+		->where('emp_id',$emp_id)
+		->where('day_date >=',$start_date)
+		->where('day_date <=',$end_date);
 
 		$query = $this->db->get();
 
@@ -331,6 +333,16 @@ class MdFiles extends CI_Model {
 		$query = $this->db->get();
 
 		return $query->result_array();
+	}
+	public function getPayrollWithId($id){
+		$this->db->select()
+		->from('tbl_payroll')
+		->where('payroll_id',$id);
+
+		$query = $this->db->get();
+
+		return $query->result_array();
+
 	}
 	public function getPayrollPaySlip($term,$month,$year,$id){
 		$this->db->select()

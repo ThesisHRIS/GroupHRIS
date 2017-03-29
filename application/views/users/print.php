@@ -78,8 +78,8 @@
 								<td><?php echo $key['absent_deduc']?></td>
 							</tr>
 							<tr>
-								<td>Legal Holiday</td>
-								<td>0</td>
+								<td>Overtime Pay</td>
+								<td><?php echo $key['ot_pay']?></td>
 								<td>Lates</td>
 								<td><?php echo $key['tardy_deduc']?></td>
 							</tr>
@@ -104,8 +104,8 @@
 							<tr>
 								<td>ECOLA</td>
 								<td><?php echo $key['ecola']?></td>
-								<td>Withholding Tax</td>
-								<td>0</td>
+								<td>Tax</td>
+								<td><?php echo $key['tax']?></td>
 							</tr>
 							<tr>
 								<td>Other Earnings</td>

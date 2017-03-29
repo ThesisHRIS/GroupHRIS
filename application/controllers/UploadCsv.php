@@ -82,6 +82,7 @@
                $GLOBALS['id']=0;
                $GLOBALS['startDate'] = "0000-00-00";
                $GLOBALS['endDate'] = "0000-00-00";
+               $employee =  array();
                // $GLOBALS['countTardy'] = 0;
             foreach ($array as $key ) {
                if(@$key[0]==="Start Date"){
@@ -162,23 +163,25 @@
                         );
                // print_r($array);
                $query = $this->MdFiles->insertAttendance($array); 
-               }
+               array_push($employee,$GLOBALS['id']);
+            }
                
    
-                  }
+         }
                   
    
-               $query = $this->computePayroll();
+               $query = $this->computePayroll($employee);
                echo $query;
                  }
                 
               
-   public function computePayroll(){
+   public function computePayroll($dataEmp){
          $employee = $this->MdFiles->getEmployee();
-         // print_r($employee);
+         // // print_r($employee);
          foreach ($employee as $key) {
+            if(in_array($key['emp_id'],$dataEmp)){
             $tax_status = $key['tax_status'];
-            $attendance = $this->MdFiles->getAttendance($key['emp_id']);
+            $attendance = $this->MdFiles->getAttendance($key['emp_id'],$GLOBALS['startDate'],$GLOBALS['endDate']);
             $otHours=0;
             $otNum=0;
             $absent=0;
@@ -208,6 +211,7 @@
                $other = $salary['other'];
 
             }
+
 
             $loans = $this->MdFiles->getLoans($key['emp_id']);
             // print_r();
@@ -317,8 +321,9 @@
                   if(@$sssDeduction[0]['equivalent']){
                      $sss =$sssDeduction[0]['equivalent'];
                   }
-                  $taxableIncome = (($FinalSalary*8*13)+$ecola+$other)-$tardyDeduction-$sss-($absent*($FinalSalary*8))-50-50;
-                  // echo $taxableIncome.' ';
+                  $totalEarnings =(($FinalSalary*8*13)+($ecola/2)+($other/2))+($otHours*$FinalSalary*1.25);
+                  $taxableIncome =$totalEarnings-$tardyDeduction-$sss-($absent*($FinalSalary*8))-100 ;
+  
                   $totalTaxAnnually = $taxableIncome*12;
                   // echo $totalTaxAnnually.' ';
                   $getPercentage = $this->MdFiles->getPercentage($totalTaxAnnually,$tax_status);
@@ -332,7 +337,11 @@
                      # code...
                   }
                   // echo $percentage;
-                  $finalTax = $taxableIncome-$excess;
+                   if($taxableIncome > $excess){
+                     $finalTax = $taxableIncome-$excess;
+                  }else{
+                     $finalTax = $excess-$taxableIncome;
+                  }
                   // echo $finalTax.' ';
                   $finalTax = $exemption+($finalTax*($percentage/100));
                   // echo $finalTax;
@@ -362,9 +371,10 @@
                      'philhealth'=>50,
                      'pagibig'=>50,
                      'tax' => $finalTax,
+                     'cash_advance' => $caDeduction,
                      'sss_loan'=>" ",
                      'ph_loan'=>" ",
-                     'other_deduc'=>$caDeduction,
+                     'other_deduc'=>" ",
                      'net_pay'=>$taxableIncome-$finalTax,
                      'undertime_num'=>" ",
                      'undertime_deduc'=>" ",
@@ -391,6 +401,7 @@
                $boolean = '0';
             }
          }
+      }
 
          // print_r($query);
          return $boolean;
