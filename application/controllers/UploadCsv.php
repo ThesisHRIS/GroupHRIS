@@ -412,7 +412,8 @@
    
    
    
-   public function validate(){
+    public function validate(){
+      // echo "<script>alert('hello');</script>";
       date_default_timezone_set('Asia/Manila');
       $date=date('Y-m-d');
       if(@$_FILES['file']){
@@ -567,6 +568,7 @@
               return $arrayAll;
           }else{
             // return "no Data";
+          
       }
    }
    

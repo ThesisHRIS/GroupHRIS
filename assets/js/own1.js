@@ -940,7 +940,8 @@ function submitCSV(filename){
             filename: filename
         },
         success: function(success) {
-           if (success === '1') {
+            alert(success);
+           if (success == '1') {
                     toastr.success('Successfully Done!', '');
                     setTimeout(function() {
                         location.reload();
@@ -1011,7 +1012,6 @@ $('.deleteItem').click(function() {
 
 $('.update201file').click(function(){
     var data_upd = $('.update201').serialize();
-    // alert(data_upd);
     $.ajax({
             type: 'GET',
             url: 'update_201',

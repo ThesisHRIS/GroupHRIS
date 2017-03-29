@@ -236,8 +236,7 @@ class Add201File extends CI_Controller
 			'supervisor_id'=>$arrNew['supervisor_id'],
 			'status'=>$arrNew['status']
 		);
-		$query=$this->MdFiles->updateAdd201files($arrNew['emp_id'],$array);
-		
+		$query=$this->MdFiles->updateAdd201files($arrNew['emp_id'],$array);	
 		$array1 = array(
 			'emp_id'=>$arrNew['emp_id'],
 			'basic'=>$this->encrypt->encode($arrNew['basic'].SALT),
